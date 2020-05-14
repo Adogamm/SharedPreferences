@@ -237,7 +237,31 @@ class _formularioRegistroState extends State<formularioRegistro> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text('$correoGuardado'),
-              )
+              ),
+              SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    height: 60,
+                    child: MaterialButton(
+                      onPressed: () {
+                        cerrarSesion();
+                      },
+                      color: Colors.lightBlue[400],
+                      child:
+                      Text(
+                        'Cerrar Sesión',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -284,7 +308,31 @@ class _formularioRegistroState extends State<formularioRegistro> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(correo),
-            )
+            ),
+            SizedBox(height: 20.0),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                  height: 60,
+                  child: MaterialButton(
+                    onPressed: () {
+                      cerrarSesion();
+                    },
+                    color: Colors.lightBlue[400],
+                    child:
+                    Text(
+                      'Cerrar Sesión',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       );
@@ -306,5 +354,15 @@ class _formularioRegistroState extends State<formularioRegistro> {
       nombreGuardado = datos.get('nombre')??nombre;
       correoGuardado = datos.get('correo')??correo;
     });
+  }
+
+  Future<void> cerrarSesion() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('_sesion', false);
+    setState(() {
+      nombreGuardado = '';
+      correoGuardado = '';
+    });
+    Navigator.pop(context);
   }
 }
