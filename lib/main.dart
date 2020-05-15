@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login con Flutter',
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
+      theme:
+      ThemeData(
+        primarySwatch: Colors.deepOrange,
+        brightness: Brightness.dark
+      ),
       home: formularioRegistro(),
     );
   }

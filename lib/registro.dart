@@ -26,14 +26,13 @@ class _formularioRegistroState extends State<formularioRegistro> {
 
   @override
   Widget build(BuildContext context) {
-
     setState(() {
       obtenerPreferencias();
     });
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue[500],
+        backgroundColor: Colors.deepOrange[600],
         centerTitle: true,
         title: Text('Crea tu cuenta', style: TextStyle(color: Colors.white)),
       ),
@@ -46,7 +45,7 @@ class _formularioRegistroState extends State<formularioRegistro> {
                 width: 100,
                 height: 100,
                 child: Image.network(
-                    'https://media-exp1.licdn.com/dms/image/C4E0BAQHvLVhwV-YgGA/company-logo_200_200/0?e=2159024400&v=beta&t=GW4TEt4KUUpG_U7cVuCLIwFfw_ge5DrBmYczuciU844'),
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/1200px-Swift_logo.svg.png'),
               ),
             ),
           ),
@@ -63,7 +62,11 @@ class _formularioRegistroState extends State<formularioRegistro> {
                       child: Row(
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.person, size: 30),
+                              icon: Icon(
+                                Icons.person,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                               onPressed: null),
                           Expanded(
                             child: Container(
@@ -88,7 +91,8 @@ class _formularioRegistroState extends State<formularioRegistro> {
                       child: Row(
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.lock, size: 30),
+                              icon: Icon(Icons.lock,
+                                  size: 30, color: Colors.white),
                               onPressed: null),
                           Expanded(
                             child: Container(
@@ -114,7 +118,8 @@ class _formularioRegistroState extends State<formularioRegistro> {
                       child: Row(
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.mail, size: 30),
+                              icon: Icon(Icons.mail,
+                                  size: 30, color: Colors.white),
                               onPressed: null),
                           Expanded(
                             child: Container(
@@ -141,12 +146,12 @@ class _formularioRegistroState extends State<formularioRegistro> {
                           RichText(
                             text: TextSpan(
                                 text: 'He leído y acepto los ',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.white),
                                 children: [
                                   TextSpan(
                                       text: 'terminos y condiciones',
                                       style: TextStyle(
-                                          color: Colors.lightBlue,
+                                          color: Colors.deepOrange[600],
                                           fontWeight: FontWeight.bold))
                                 ]),
                           )
@@ -172,7 +177,7 @@ class _formularioRegistroState extends State<formularioRegistro> {
                                 pushPage();
                               }
                             },
-                            color: Colors.lightBlue[400],
+                            color: Colors.deepOrange[600],
                             child: Text(
                               'Registarse',
                               style: TextStyle(
@@ -195,18 +200,18 @@ class _formularioRegistroState extends State<formularioRegistro> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _checkLogin();
   }
 
-  Future _checkLogin() async{
+  Future _checkLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.getBool('_sesion')) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.lightBlue,
+            backgroundColor: Colors.deepOrange[600],
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: Text(
@@ -247,11 +252,35 @@ class _formularioRegistroState extends State<formularioRegistro> {
                     height: 60,
                     child: MaterialButton(
                       onPressed: () {
-                        cerrarSesion();
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Cerrar sesión'),
+                            content: Text(
+                                '¿Estas seguro de querer cerrar la sesión?'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('SI'),
+                                onPressed: () {
+                                  Navigator.of(context).pop('SI');
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('NO'),
+                                onPressed: () {
+                                  Navigator.of(context).pop('NO');
+                                },
+                              )
+                            ],
+                          ),
+                        ).then((result) {
+                          if (result == 'SI') {
+                            cerrarSesion();
+                          }
+                        });
                       },
-                      color: Colors.lightBlue[400],
-                      child:
-                      Text(
+                      color: Colors.deepOrange[600],
+                      child: Text(
                         'Cerrar Sesión',
                         style: TextStyle(
                             color: Colors.white,
@@ -269,7 +298,6 @@ class _formularioRegistroState extends State<formularioRegistro> {
     }
   }
 
-
   void pushPage() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool('_sesion', true);
@@ -277,7 +305,7 @@ class _formularioRegistroState extends State<formularioRegistro> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return new Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.deepOrange[600],
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
@@ -318,11 +346,35 @@ class _formularioRegistroState extends State<formularioRegistro> {
                   height: 60,
                   child: MaterialButton(
                     onPressed: () {
-                      cerrarSesion();
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('Cerrar sesión'),
+                          content:
+                              Text('¿Estas seguro de querer cerrar la sesión'),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('SI'),
+                              onPressed: () {
+                                Navigator.of(context).pop('SI');
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('NO'),
+                              onPressed: () {
+                                Navigator.of(context).pop('NO');
+                              },
+                            )
+                          ],
+                        ),
+                      ).then((result) {
+                        if (result == 'SI') {
+                          cerrarSesion();
+                        }
+                      });
                     },
-                    color: Colors.lightBlue[400],
-                    child:
-                    Text(
+                    color: Colors.deepOrange,
+                    child: Text(
                       'Cerrar Sesión',
                       style: TextStyle(
                           color: Colors.white,
@@ -339,9 +391,6 @@ class _formularioRegistroState extends State<formularioRegistro> {
     }));
   }
 
-
-
-
   Future<void> guardarPreferencias() async {
     SharedPreferences datos = await SharedPreferences.getInstance();
     datos.setString('nombre', _controllerUsuario.text);
@@ -351,8 +400,8 @@ class _formularioRegistroState extends State<formularioRegistro> {
   Future<void> obtenerPreferencias() async {
     SharedPreferences datos = await SharedPreferences.getInstance();
     setState(() {
-      nombreGuardado = datos.get('nombre')??nombre;
-      correoGuardado = datos.get('correo')??correo;
+      nombreGuardado = datos.get('nombre') ?? nombre;
+      correoGuardado = datos.get('correo') ?? correo;
     });
   }
 
